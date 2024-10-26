@@ -32,16 +32,16 @@ pipeline {
     post {
         success {
             // API call for success with committer info
-            echo "Build successful"
+            echo "Post Build Status - Success"
             bat """
-                curl --location 'http://localhost:8001/switch-bulb?committer_id=1234&commit_status=true'
+                curl --location "http://localhost:8001/switch-bulb?committer_id=1234&commit_status=true"
             """
         }
         failure {
             // API call for failure with committer info
-            echo "Build failed"
+            echo "Post Build Status - Failed"
             bat """
-                curl --location 'http://localhost:8001/switch-bulb?committer_id=1234&commit_status=false'
+                curl --location "http://localhost:8001/switch-bulb?committer_id=1234&commit_status=false"
             """
         }
     }
