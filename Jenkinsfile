@@ -32,14 +32,14 @@ pipeline {
     post {
         success {
             // API call for success with committer info
-            echo "Post Build Status - Success"
+            echo "Build successful, calling API with success=true, committer=${env.COMMITTER_NAME} (${env.COMMITTER_EMAIL})"
             bat """
                 curl --location "http://localhost:8001/switch-bulb?committer_id=1234&commit_status=true"
             """
         }
         failure {
             // API call for failure with committer info
-            echo "Post Build Status - Failed"
+            echo "Build failed, calling API with success=false, committer=${env.COMMITTER_NAME} (${env.COMMITTER_EMAIL})"
             bat """
                 curl --location "http://localhost:8001/switch-bulb?committer_id=1234&commit_status=false"
             """
