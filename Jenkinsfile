@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Hello World From Jenkins File"
+                echo "Hello World From Jenkins File 1"
                 script {
                     try {
                         // Get the latest committer's details
