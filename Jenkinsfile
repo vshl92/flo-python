@@ -6,9 +6,27 @@ pipeline {
                 echo "Hello World From Jenkins File 1"
                 script {
                     try {
-                        // Get the latest committer's details
-                        def committerName = bat(script: "git log -1 --pretty=format:\"%an\"", returnStdout: true).trim()
-                        def committerEmail = bat(script: "git log -1 --pretty=format:\"%ae\"", returnStdout: true).trim()
+        
+                        
+                        // // Get the latest committer's details
+                        // def committerName = bat(script: "git log -1 --pretty=format:\"%an\"", returnStdout: true).trim()
+                        // def committerEmail = bat(script: "git log -1 --pretty=format:\"%ae\"", returnStdout: true).trim()
+                        // // Save committer info as environment variables
+                        // env.COMMITTER_NAME = committerName
+                        // env.COMMITTER_EMAIL = committerEmail
+
+                        // Create temporary .bat file to capture committer name
+                        writeFile file: 'getCommitterName.bat', text: '@echo off\n' +
+                            '"C:\\Program Files\\Git\\bin\\git.exe" log -1 --pretty=format:"%an" > committerName.txt'
+                        bat 'getCommitterName.bat'
+                        def committerName = readFile('committerName.txt').trim()
+                        
+                        // Create temporary .bat file to capture committer email
+                        writeFile file: 'getCommitterEmail.bat', text: '@echo off\n' +
+                            '"C:\\Program Files\\Git\\bin\\git.exe" log -1 --pretty=format:"%ae" > committerEmail.txt'
+                        bat 'getCommitterEmail.bat'
+                        def committerEmail = readFile('committerEmail.txt').trim()
+                        
                         // Save committer info as environment variables
                         env.COMMITTER_NAME = committerName
                         env.COMMITTER_EMAIL = committerEmail
