@@ -17,7 +17,7 @@ pipeline {
                         echo 'Running actual commands here...'
                         echo 'Running build...'
                         // sh 'exit 0'  // Replace 'exit 0' with actual build commands
-                        // throw new Exception("Custom Error")
+                        throw new Exception("Custom Error")
 
                     } catch (Exception e) {
                         // currentBuild.result = 'FAILURE'
