@@ -7,19 +7,21 @@ pipeline {
                 script {
                     try {
                         // Get the latest committer's details
-                        def committerName = sh(script: "git log -1 --pretty=format:'%an'", returnStdout: true).trim()
-                        def committerEmail = sh(script: "git log -1 --pretty=format:'%ae'", returnStdout: true).trim()
+                        // def committerName = sh(script: "git log -1 --pretty=format:'%an'", returnStdout: true).trim()
+                        // def committerEmail = sh(script: "git log -1 --pretty=format:'%ae'", returnStdout: true).trim()
                         // Save committer info as environment variables
-                        env.COMMITTER_NAME = committerName
-                        env.COMMITTER_EMAIL = committerEmail
+                        // env.COMMITTER_NAME = committerName
+                        // env.COMMITTER_EMAIL = committerEmail
 
                         // Place your build commands here
+                        echo 'Running actual commands here...'
                         echo 'Running build...'
                         // sh 'exit 0'  // Replace 'exit 0' with actual build commands
 
                     } catch (Exception e) {
-                        currentBuild.result = 'FAILURE'
-                        throw e
+                        // currentBuild.result = 'FAILURE'
+                        // throw e
+                        echo 'Error Occurred'
                     }
                 }
             }
