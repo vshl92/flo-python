@@ -36,8 +36,8 @@ pipeline {
             }
         }
         stage('Build') {
-            echo "Running build..."
             steps {
+                echo "Running build..."
                 script {
                     try {
                         // echo 'Running actual commands here...'
