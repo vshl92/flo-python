@@ -20,6 +20,7 @@ pipeline {
                         def committerEmail = bat(script: 'git log -1 --pretty=format:%ae', returnStdout: true).trim()
 
                         echo "============================="
+                        bat "git log"
                         bat "git log -1 --pretty=format:%an"
                         bat "git log -1 --pretty=format:%ae"
                         echo "============================="
