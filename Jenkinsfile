@@ -33,7 +33,10 @@ pipeline {
                         def temp2 = bat(script: 'git log -1 --pretty=format:%%an', returnStdout: true).trim()
                         def temp3 = bat(script: 'git log -1 --pretty=format:%%ae', returnStdout: true).trim()
                         
-                        println("temp1 value = ${temp1}")
+                        // Split each result by newline and get only the last line, which is the actual output
+                        temp2 = temp2.split("\r?\n")[-1].trim()
+                        temp3 = temp3.split("\r?\n")[-1].trim()
+                        
                         println("temp2 (Author Name) value = ${temp2}")
                         println("temp3 (Author Email) value = ${temp3}")
                         echo "============================="
