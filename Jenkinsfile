@@ -21,6 +21,8 @@ pipeline {
                         env.AUTHOR_NAME = authorName
                         env.AUTHOR_EMAIL = authorEmail
                         env.AUTHOR_EMAIL_ENCODED = URLEncoder.encode(env.AUTHOR_EMAIL, "UTF-8")
+                        
+                        println("env.AUTHOR_EMAIL_ENCODED = ${env.AUTHOR_EMAIL_ENCODED}")
 
                         echo 'Running actual commands here...'
                         echo 'Running build...'
