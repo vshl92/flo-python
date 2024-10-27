@@ -40,14 +40,14 @@ pipeline {
             // API call for success with committer info
             echo "Build successful. Calling switch bulb API"
             bat """
-                curl --location "http://localhost:8001/switch-bulb?author_name=${env.authorName}&author_email=${env.authorEmail}&build_status=true"
+                curl --location "http://localhost:8001/switch-bulb?author_name=${env.AUTHOR_NAME}&author_email=${env.AUTHOR_EMAIL}&build_status=true"
             """
         }
         failure {
             // API call for failure with committer info
             echo "Build failed. Calling switch bulb API"
             bat """
-                curl --location "http://localhost:8001/switch-bulb?author_name=${env.authorName}&author_email=${env.authorEmail}&build_status=false"
+                curl --location "http://localhost:8001/switch-bulb?author_name=${env.AUTHOR_NAME}&author_email=${env.AUTHOR_EMAIL}&build_status=false"
             """
         }
     }
