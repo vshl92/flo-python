@@ -1,9 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Get Commit Info...') {
             steps {
-                echo "Hello World From Jenkins File 1"
+                echo "Getting Commit Info"
                 script {
                     try {
                         // Execute Git commands directly and capture the output
@@ -26,15 +26,28 @@ pipeline {
                         println("(Author Name Encoded) value = ${env.AUTHOR_NAME_ENCODED}")
                         println("(Author Email Encoded) value = ${env.AUTHOR_EMAIL_ENCODED}")
 
-                        echo 'Running actual commands here...'
-                        echo 'Running build...'
-                        // sh 'exit 0'  // Replace 'exit 0' with actual build commands
-                        // throw new Exception("Custom Error")
-
+                        echo "Commit Info Collected"
                     } catch (Exception e) {
-                        echo 'Error Occurred'
+                        echo "Error occurred while collecting GIT commit info"
                         currentBuild.result = 'FAILURE'
                         throw e
+                    }
+                }
+            }
+        }
+        stage('Build') {
+            echo "Running build..."
+            steps {
+                script {
+                    try {
+                        // echo 'Running actual commands here...'
+                        bat "python app.py"
+                        // bat "exit 0"  // Replace 'exit 0' with actual build commands
+                    // throw new Exception("Custom Error")
+                    } catch (Exception e) {
+                            echo "Error occurred while executing build commands"
+                            currentBuild.result = 'FAILURE'
+                            throw e
                     }
                 }
             }
