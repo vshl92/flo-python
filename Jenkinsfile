@@ -24,7 +24,7 @@ pipeline {
                         bat "git log -1"
                         // bat "git log -1 --pretty=format:%an"
                         // bat "git log -1 --pretty=format:%ae"
-                        def temp = bat(script: 'git log -1', returnStdout: true).trim()
+                        def temp = bat(script: 'git log -1 --pretty=format:%an', returnStdout: true).trim()
                         env.TEMP = temp
                         echo "TEMP .. ${env.TEMP}"
                         echo "============================="
