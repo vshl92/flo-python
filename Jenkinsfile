@@ -17,10 +17,13 @@ pipeline {
                         // Save committer info as environment variables
                         env.AUTHOR_NAME = authorName
                         env.AUTHOR_EMAIL = authorEmail
+                        
+                        env.AUTHOR_NAME_ENCODED = URLEncoder.encode(env.AUTHOR_NAME, "UTF-8").replace("%", "%%")
                         env.AUTHOR_EMAIL_ENCODED = URLEncoder.encode(env.AUTHOR_EMAIL, "UTF-8").replace("%", "%%")
 
                         println("(Author Name) value = ${authorName}")
                         println("(Author Email) value = ${authorEmail}")
+                        println("(Author Name Encoded) value = ${env.AUTHOR_NAME_ENCODED}")
                         println("(Author Email Encoded) value = ${env.AUTHOR_EMAIL_ENCODED}")
 
                         echo 'Running actual commands here...'
@@ -43,14 +46,14 @@ pipeline {
             
             echo "Build successful. Calling switch bulb API"
             bat """
-                curl --location "http://localhost:8001/switch-bulb?author_name=${env.AUTHOR_NAME}&author_email=${env.AUTHOR_EMAIL_ENCODED}&build_status=true"
+                curl --location "http://localhost:8001/switch-bulb?author_name=${env.AUTHOR_NAME_ENCODED}&author_email=${env.AUTHOR_EMAIL_ENCODED}&build_status=true"
             """
         }
         failure {
             // API call for failure with committer info
             echo "Build failed. Calling switch bulb API"
             bat """
-                curl --location "http://localhost:8001/switch-bulb?author_name=${env.AUTHOR_NAME}&author_email=${env.AUTHOR_EMAIL_ENCODED}&build_status=false"
+                curl --location "http://localhost:8001/switch-bulb?author_name=${env.AUTHOR_NAME_ENCODED}&author_email=${env.AUTHOR_EMAIL_ENCODED}&build_status=false"
             """
         }
     }
