@@ -24,8 +24,12 @@ pipeline {
                         bat "git log -1"
                         // bat "git log -1 --pretty=format:%an"
                         // bat "git log -1 --pretty=format:%ae"
-                        echo "============================="
                         def temp = bat(script: 'git log -1', returnStdout: true).trim()
+                        env.TEMP = temp
+                        echo "TEMP .. ${env.TEMP}"
+                        echo "============================="
+                        
+                        
                         
                         // Save committer info as environment variables
                         env.COMMITTER_NAME = committerName
