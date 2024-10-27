@@ -24,10 +24,20 @@ pipeline {
                         bat "git log -1"
                         // bat "git log -1 --pretty=format:%an"
                         // bat "git log -1 --pretty=format:%ae"
-                        def temp = bat(script: 'git log -1 --pretty=format:%an', returnStdout: true).trim()
-                        env.TEMP = temp
-                        echo "TEMP .. ${env.TEMP}"
+                        // def temp = bat(script: 'git log -1 --pretty=format:%an', returnStdout: true).trim()
+                        // env.TEMP = temp
+                        // echo "TEMP .. ${env.TEMP}"
                         echo "============================="
+
+                        def temp1 = bat(script: 'git log -1', returnStdout: true).trim()
+                        def temp2 = bat(script: 'git log -1 --pretty=format:%%an', returnStdout: true).trim()
+                        def temp3 = bat(script: 'git log -1 --pretty=format:%%ae', returnStdout: true).trim()
+                        
+                        println("temp1 value = ${temp1}")
+                        println("temp2 (Author Name) value = ${temp2}")
+                        println("temp3 (Author Email) value = ${temp3}")
+                        echo "============================="
+
                         
                         
                         
