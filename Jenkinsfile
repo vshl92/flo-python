@@ -18,6 +18,11 @@ pipeline {
                         // Execute Git commands directly and capture the output
                         def committerName = bat(script: 'git log -1 --pretty=format:%an', returnStdout: true).trim()
                         def committerEmail = bat(script: 'git log -1 --pretty=format:%ae', returnStdout: true).trim()
+
+                        echo "============================="
+                        bat "git log -1 --pretty=format:%an"
+                        bat "git log -1 --pretty=format:%ae"
+                        echo "============================="
                         
                         // Save committer info as environment variables
                         env.COMMITTER_NAME = committerName
