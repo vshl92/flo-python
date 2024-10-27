@@ -13,16 +13,15 @@ pipeline {
                         // Split each result by newline and get only the last line, which is the actual output
                         authorName = authorName.split("\r?\n")[-1].trim()
                         authorEmail = authorEmail.split("\r?\n")[-1].trim()
-                        
-                        println("(Author Name) value = ${authorName}")
-                        println("(Author Email) value = ${authorEmail}")
 
                         // Save committer info as environment variables
                         env.AUTHOR_NAME = authorName
                         env.AUTHOR_EMAIL = authorEmail
-                        env.AUTHOR_EMAIL_ENCODED = URLEncoder.encode(env.AUTHOR_EMAIL, "UTF-8")
-                        
-                        println("env.AUTHOR_EMAIL_ENCODED = ${env.AUTHOR_EMAIL_ENCODED}")
+                        env.AUTHOR_EMAIL_ENCODED = URLEncoder.encode(env.AUTHOR_EMAIL, "UTF-8").replace("%", "%%")
+
+                        println("(Author Name) value = ${authorName}")
+                        println("(Author Email) value = ${authorEmail}")
+                        println("(Author Email Encoded) value = ${env.AUTHOR_EMAIL_ENCODED}")
 
                         echo 'Running actual commands here...'
                         echo 'Running build...'
